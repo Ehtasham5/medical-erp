@@ -1,0 +1,10 @@
+CREATE TYPE "SaleStatus" AS ENUM ('HELD', 'COMPLETED', 'CANCELLED');
+ALTER TABLE "Sale" ADD COLUMN "subtotal" DECIMAL(12,2) NOT NULL DEFAULT 0;
+ALTER TABLE "Sale" ADD COLUMN "discountAmount" DECIMAL(12,2) NOT NULL DEFAULT 0;
+ALTER TABLE "Sale" ADD COLUMN "paymentDetails" JSONB;
+ALTER TABLE "Sale" ADD COLUMN "status" "SaleStatus" NOT NULL DEFAULT 'COMPLETED';
+ALTER TABLE "Sale" ADD COLUMN "receiptNumber" TEXT;
+ALTER TABLE "Sale" ADD COLUMN "requestId" TEXT;
+UPDATE "Sale" SET "subtotal" = "totalAmount", "receiptNumber" = 'R-' || UPPER(RIGHT("id", 8));
+CREATE UNIQUE INDEX "Sale_receiptNumber_key" ON "Sale"("receiptNumber");
+CREATE UNIQUE INDEX "Sale_requestId_key" ON "Sale"("requestId");

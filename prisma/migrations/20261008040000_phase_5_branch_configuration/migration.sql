@@ -1,0 +1,3 @@
+ALTER TABLE "Branch" ADD COLUMN "currency" TEXT NOT NULL DEFAULT 'USD';
+ALTER TABLE "Branch" ADD COLUMN "receiptHeader" TEXT;
+ALTER TABLE "Branch" ADD COLUMN "receiptFooter" TEXT;
